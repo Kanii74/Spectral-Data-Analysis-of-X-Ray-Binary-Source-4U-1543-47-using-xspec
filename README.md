@@ -280,33 +280,5 @@ Advanced models combined with MCMC methods require significant computational res
 
 ---
 
-# Repository Structure
 
-```
-.
-├── README.md
-├── Summer Internship Final Kanishk (1).pdf
-```
 
-The PDF report contains the full internship study including:
-
-- theoretical background
-- X-ray binary physics
-- NuSTAR mission overview
-- spectral fitting methodology
-- parameter tables
-- spectral plots for each observation
-- MCMC error estimation
-
----
-
-# Future Work
-
-Possible extensions of this project include:
-
-- Timing analysis of the source variability
-- Joint spectral fitting with other X-ray missions
-- Improved spin estimation using advanced reflection models
-- Multi-wavelength studies combining optical and radio observations
-
-These directions can provide deeper insights into **accretion processes in black hole X-ray binaries**.
