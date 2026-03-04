@@ -14,7 +14,7 @@ The main goal of this work was to model the observed X-ray spectrum and extract 
 
 X-ray binaries are systems consisting of two main components:
 
-- A **compact object** (black hole or neutron star)
+- A **compact object** (black hole or neutron star)  
 - A **normal companion star**
 
 Matter from the companion star is transferred to the compact object through **accretion**, forming an **accretion disk**. As matter spirals inward, gravitational energy is converted into heat and radiation, producing strong **X-ray emission**.
@@ -69,16 +69,52 @@ Observation IDs used in this analysis:
 
 These observations capture the **spectral evolution of the system during its outburst phase**.
 
+## Data Structure
+
+The directory `nustar-data-4u1543` contains **10 observation folders**, each corresponding to a separate NuSTAR observation.  
+Each folder has the same internal structure, with the only difference being the **observation ID**.
+
+Every observation directory contains the standard spectral files required for **X-ray spectral fitting in XSPEC**.
+
+### File Types
+
+| File Type | Description |
+|-----------|-------------|
+| `*_sr.pha` | Source spectrum extracted from the observation |
+| `*_bk.pha` | Background spectrum |
+| `*_sr.arf` | Ancillary Response File describing the detector effective area |
+| `*.rmf` | Redistribution Matrix File defining the detector energy response |
+| `*.grp.pha` | Grouped spectrum used for spectral fitting |
+| `*.xcm` | XSPEC command files used to reproduce spectral fits |
+
+### Directory Layout
+
+```
+nustar-data-4u1543/
+├── 80702317002/
+├── 80702317004/
+├── 80702317006/
+├── 80702317008/
+├── 90702326002/
+├── 90702326004/
+├── 90702326006/
+├── 90702326008/
+├── 90702326010/
+└── 90702326012/
+```
+
+Each observation folder contains the **source spectrum, background spectrum, and instrument response files** needed for performing spectral modeling in XSPEC.
+
 ---
 
 # Software and Tools
 
 The analysis used the following software tools:
 
-- HEASOFT
-- XSPEC
-- NuSTAR observational data products
-- relxill reflection model
+- HEASOFT  
+- XSPEC  
+- NuSTAR observational data products  
+- relxill reflection model  
 
 XSPEC is a standard tool in **X-ray astronomy used for spectral fitting and statistical analysis**.
 
@@ -102,8 +138,6 @@ Each component represents a different physical process occurring in the system.
 
 Models **interstellar absorption** due to neutral hydrogen along the line of sight.
 
-Parameter:
-
 | Parameter | Description |
 |----------|-------------|
 | nH | Hydrogen column density |
@@ -113,8 +147,6 @@ Parameter:
 ## zxipcf
 
 Models **ionized absorption with partial covering**.
-
-Parameters:
 
 | Parameter | Description |
 |----------|-------------|
@@ -131,8 +163,6 @@ Represents **thermal emission from the accretion disk**.
 
 The model assumes a **multi-temperature blackbody disk**.
 
-Parameters:
-
 | Parameter | Description |
 |----------|-------------|
 | Tin | Inner disk temperature |
@@ -146,7 +176,7 @@ The **relxill model** describes **relativistic reflection from the accretion dis
 
 This model combines:
 
-- xillver (reflection spectrum calculations)
+- xillver (reflection spectrum calculations)  
 - relline (relativistic ray tracing)
 
 It includes relativistic effects such as:
@@ -174,12 +204,12 @@ Important parameters include:
 
 The spectral fitting process followed these steps:
 
-1. Load spectral data into XSPEC
-2. Define the physical model
-3. Set initial parameter values
-4. Fit the model to the data
-5. Evaluate goodness of fit using chi-squared statistics
-6. Estimate parameter uncertainties
+1. Load spectral data into XSPEC  
+2. Define the physical model  
+3. Set initial parameter values  
+4. Fit the model to the data  
+5. Evaluate goodness of fit using chi-squared statistics  
+6. Estimate parameter uncertainties  
 
 Example XSPEC commands used during the analysis:
 
@@ -224,9 +254,9 @@ This method generates probability distributions for each parameter and provides 
 
 The spectral fits indicate the presence of:
 
-- A **thermal disk component** from the accretion disk
-- A **power-law continuum** produced by Comptonization in the corona
-- **Relativistic reflection features** originating from the inner disk
+- A **thermal disk component** from the accretion disk  
+- A **power-law continuum** produced by Comptonization in the corona  
+- **Relativistic reflection features** originating from the inner disk  
 
 The power-law emission originates from a **hot corona**, where soft photons from the accretion disk are upscattered by energetic electrons through **inverse Compton scattering**.
 
@@ -234,16 +264,16 @@ Reflection features appear when coronal X-rays illuminate the disk and are refle
 
 Important diagnostic signatures include:
 
-- Iron emission lines around **6–7 keV**
-- Compton reflection hump
-- Relativistic broadening of spectral lines
+- Iron emission lines around **6–7 keV**  
+- Compton reflection hump  
+- Relativistic broadening of spectral lines  
 
 These features allow constraints on:
 
-- Black hole spin
-- Disk inclination
-- Ionization state of the disk
-- Inner radius of the accretion disk
+- Black hole spin  
+- Disk inclination  
+- Ionization state of the disk  
+- Inner radius of the accretion disk  
 
 ---
 
@@ -253,32 +283,9 @@ The accretion disk forms when matter from the companion star spirals inward towa
 
 Key physical processes governing the disk include:
 
-- Viscous transport of angular momentum
-- Gravitational energy conversion into radiation
-- Magnetic turbulence driving accretion
-- Radiative cooling balancing heating
+- Viscous transport of angular momentum  
+- Gravitational energy conversion into radiation  
+- Magnetic turbulence driving accretion  
+- Radiative cooling balancing heating  
 
 The disk temperature increases toward the inner regions, producing the **multi-temperature blackbody spectrum** modeled using the `diskbb` component.
-
----
-
-# Challenges in X-Ray Spectral Analysis
-
-X-ray spectral modeling involves several challenges:
-
-### Instrument Response
-
-Detector response must be included because instruments do not measure photon energy directly.
-
-### Model Degeneracy
-
-Different models may produce similar spectra, making interpretation difficult.
-
-### Computational Cost
-
-Advanced models combined with MCMC methods require significant computational resources.
-
----
-
-
-
